@@ -52,16 +52,16 @@ export default function ProductModal({ isOpen, onClose, onCreated }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200">
         <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-          <h2 className="text-lg font-bold text-slate-800">Add New Inventory Product</h2>
-          <button onClick={onClose} className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100">
+          <h2 className="text-lg font-black text-slate-900">Add New Inventory Product</h2>
+          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100">
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {error && <div className="mt-4 p-3 bg-red-50 text-red-600 text-xs rounded-lg">{error}</div>}
+        {error && <div className="mt-4 p-3 bg-red-50 text-red-600 text-xs rounded-xl font-medium">{error}</div>}
 
         <form onSubmit={handleSubmit} className="mt-4 space-y-4 text-sm">
           <div>
@@ -176,8 +176,8 @@ export default function ProductModal({ isOpen, onClose, onCreated }) {
           </div>
 
           <div className="flex justify-end gap-3 pt-4 border-t border-slate-100">
-            <button type="button" onClick={onClose} className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg font-medium">Cancel</button>
-            <button type="submit" disabled={loading} className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition flex items-center gap-2">
+            <button type="button" onClick={onClose} className="px-4 py-2.5 text-slate-600 hover:bg-slate-100 rounded-xl font-bold text-sm">Cancel</button>
+            <button type="submit" disabled={loading} className="px-5 py-2.5 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition flex items-center gap-2 text-sm shadow-lg shadow-indigo-600/20">
               {loading ? 'Creating...' : <><Check className="w-4 h-4" /> Save Product</>}
             </button>
           </div>

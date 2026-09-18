@@ -6,10 +6,10 @@ const Category = require('./models/Category');
 const Location = require('./models/Location');
 const Product = require('./models/Product');
 const AuditLog = require('./models/AuditLog');
-<<<<<<< HEAD
 const PurchaseOrder = require('./models/PurchaseOrder');
-=======
->>>>>>> c5ab6591203fab52473828b672a57871a7dbebba
+const DispatchOrder = require('./models/DispatchOrder');
+const StockTransfer = require('./models/StockTransfer');
+const StockAdjustmentRequest = require('./models/StockAdjustmentRequest');
 const { generateQRCode } = require('./utils/barcode');
 
 dotenv.config();
@@ -24,12 +24,11 @@ const seed = async () => {
       Category.deleteMany(),
       Location.deleteMany(),
       Product.deleteMany(),
-<<<<<<< HEAD
       AuditLog.deleteMany(),
-      PurchaseOrder.deleteMany()
-=======
-      AuditLog.deleteMany()
->>>>>>> c5ab6591203fab52473828b672a57871a7dbebba
+      PurchaseOrder.deleteMany(),
+      DispatchOrder.deleteMany(),
+      StockTransfer.deleteMany(),
+      StockAdjustmentRequest.deleteMany()
     ]);
 
     console.log('Seeding warehouses...');
@@ -68,11 +67,7 @@ const seed = async () => {
     const p2Qr = await generateQRCode(JSON.stringify({ sku: 'IND-LIFT-2002', barcode: 'BC-9938210', name: 'Hydraulic Pallet Truck 3-Ton' }));
     const p3Qr = await generateQRCode(JSON.stringify({ sku: 'PACK-BOX-3003', barcode: 'BC-1122334', name: 'Heavy Duty Double-Wall Box 24x18x18' }));
 
-<<<<<<< HEAD
     const [prod1, prod2, prod3] = await Product.create([
-=======
-    await Product.create([
->>>>>>> c5ab6591203fab52473828b672a57871a7dbebba
       {
         name: 'Industrial 2D Barcode Scanner',
         sku: 'ELEC-LOG-1001',
@@ -148,7 +143,6 @@ const seed = async () => {
       }
     ]);
 
-<<<<<<< HEAD
     console.log('Seeding purchase orders...');
     await PurchaseOrder.create([
       {
@@ -178,8 +172,55 @@ const seed = async () => {
       }
     ]);
 
-=======
->>>>>>> c5ab6591203fab52473828b672a57871a7dbebba
+    console.log('Seeding dispatch orders...');
+    await DispatchOrder.create([
+      {
+        orderNumber: 'DO-20260101-0001',
+        customer: { name: 'Northbridge Retail Group', email: 'orders@northbridgeretail.com', phone: '+1-555-0142', address: '88 Commerce St, Dallas, TX' },
+        warehouse: wh1._id,
+        priority: 'high',
+        items: [
+          { product: prod1._id, orderedQty: 10, pickedQty: 5, packedQty: 0, unitPrice: 129.99 }
+        ],
+        status: 'picking',
+        notes: 'Priority retail restock — customer requested expedited handling.',
+        createdBy: manager._id
+      },
+      {
+        orderNumber: 'DO-20260101-0002',
+        customer: { name: 'Harbor Freight Depot', email: 'purchasing@harborfreightdepot.com', phone: '+1-555-0177', address: '210 Dockside Ave, Long Beach, CA' },
+        warehouse: wh1._id,
+        priority: 'medium',
+        items: [
+          { product: prod3._id, orderedQty: 50, pickedQty: 0, packedQty: 0, unitPrice: 3.50 }
+        ],
+        status: 'pending',
+        createdBy: manager._id
+      },
+      {
+        orderNumber: 'DO-20260101-0003',
+        customer: { name: 'Summit Construction Supply', email: 'ap@summitconstruction.com', phone: '+1-555-0163', address: '77 Industrial Pkwy, Dallas, TX' },
+        warehouse: wh1._id,
+        priority: 'urgent',
+        items: [
+          { product: prod2._id, orderedQty: 2, pickedQty: 2, packedQty: 2, unitPrice: 420.00 }
+        ],
+        status: 'packed',
+        createdBy: manager._id
+      }
+    ]);
+
+    console.log('Seeding a stock adjustment request awaiting approval...');
+    await StockAdjustmentRequest.create({
+      product: prod2._id,
+      warehouse: wh1._id,
+      reasonCode: 'count_discrepancy',
+      quantity: 2,
+      note: 'Physical cycle count found 2 units of the pallet truck instead of the 3 on record.',
+      status: 'pending_approval',
+      requestedBy: staff._id
+    });
+
     console.log('🎉 Database successfully seeded with full initial test suite!');
     process.exit(0);
   } catch (err) {

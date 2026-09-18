@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { ShieldCheck, Lock, Mail } from 'lucide-react';
+import { PackageSearch, Lock, Mail, Crown, PackageCheck, Wrench, ScanEye } from 'lucide-react';
+
+const ROLE_BUTTONS = [
+  { email: 'admin@wms.com', label: 'Super Admin', icon: Crown, tone: 'text-amber-400' },
+  { email: 'manager@wms.com', label: 'Manager', icon: PackageCheck, tone: 'text-blue-400' },
+  { email: 'staff@wms.com', label: 'Staff', icon: Wrench, tone: 'text-emerald-400' },
+  { email: 'auditor@wms.com', label: 'Auditor', icon: ScanEye, tone: 'text-purple-400' }
+];
 
 export default function Login() {
   const [email, setEmail] = useState('admin@wms.com');
@@ -31,78 +38,77 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-2xl p-8 border border-slate-100">
-        <div className="text-center mb-6">
-          <div className="w-12 h-12 bg-indigo-600 text-white rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg shadow-indigo-600/30">
-            <ShieldCheck className="w-7 h-7" />
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(99,102,241,0.15),transparent_40%),radial-gradient(circle_at_80%_80%,rgba(16,185,129,0.12),transparent_40%)]" />
+
+      <div className="max-w-md w-full bg-slate-900 rounded-3xl shadow-2xl p-8 border border-slate-800 relative">
+        <div className="text-center mb-7">
+          <div className="w-14 h-14 bg-indigo-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-indigo-600/40">
+            <PackageSearch className="w-8 h-8" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-900">WMS Enterprise</h1>
-          <p className="text-sm text-slate-500 mt-1">Distributor Warehouse Management System</p>
+          <h1 className="text-2xl font-black text-white tracking-tight">WMS OPS CONSOLE</h1>
+          <p className="text-xs text-slate-400 mt-1.5 uppercase tracking-widest font-semibold">Fulfillment &amp; Distribution Control</p>
         </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-lg">
+          <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 text-red-400 text-xs rounded-xl font-medium">
             {error}
           </div>
         )}
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">Work Email</label>
+            <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Work Email</label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-              <input 
-                type="email" 
-                required 
+              <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
+              <input
+                type="email"
+                required
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 text-sm border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500" 
+                className="w-full pl-10 pr-4 py-3 text-sm bg-slate-800 border border-slate-700 text-white rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 placeholder:text-slate-500"
                 placeholder="name@wms.com"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">Password</label>
+            <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Password</label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-              <input 
-                type="password" 
-                required 
+              <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
+              <input
+                type="password"
+                required
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 text-sm border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500" 
+                className="w-full pl-10 pr-4 py-3 text-sm bg-slate-800 border border-slate-700 text-white rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 placeholder:text-slate-500"
                 placeholder="••••••••"
               />
             </div>
           </div>
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={loading}
-            className="w-full bg-indigo-600 text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-700 transition shadow-md shadow-indigo-600/20"
+            className="w-full bg-indigo-600 text-white py-3.5 rounded-xl text-sm font-bold hover:bg-indigo-500 transition shadow-lg shadow-indigo-600/30 uppercase tracking-wide"
           >
-            {loading ? 'Authenticating...' : 'Sign In to Portal'}
+            {loading ? 'Authenticating...' : 'Sign In to Console'}
           </button>
         </form>
 
-        {/* Quick RBAC Switch Buttons */}
-        <div className="mt-6 pt-6 border-t border-slate-100">
-          <p className="text-xs font-medium text-slate-400 text-center mb-2">Test with Seeded Accounts:</p>
-          <div className="grid grid-cols-2 gap-2 text-xs font-medium">
-            <button onClick={() => setRoleUser('admin@wms.com')} className="p-2 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg transition text-left">
-              👑 Super Admin
-            </button>
-            <button onClick={() => setRoleUser('manager@wms.com')} className="p-2 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg transition text-left">
-              📦 Manager
-            </button>
-            <button onClick={() => setRoleUser('staff@wms.com')} className="p-2 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg transition text-left">
-              🛠️ Staff
-            </button>
-            <button onClick={() => setRoleUser('auditor@wms.com')} className="p-2 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg transition text-left">
-              🔍 Auditor
-            </button>
+        <div className="mt-7 pt-6 border-t border-slate-800">
+          <p className="text-[11px] font-bold text-slate-500 text-center mb-3 uppercase tracking-widest">Quick Access — Seeded Accounts</p>
+          <div className="grid grid-cols-2 gap-2.5">
+            {ROLE_BUTTONS.map(({ email: roleEmail, label, icon: Icon, tone }) => (
+              <button
+                key={roleEmail}
+                onClick={() => setRoleUser(roleEmail)}
+                className={`flex items-center gap-2 p-3 bg-slate-800 hover:bg-slate-700 border rounded-xl transition text-left ${email === roleEmail ? 'border-indigo-500 ring-1 ring-indigo-500' : 'border-slate-700'}`}
+              >
+                <Icon className={`w-4 h-4 flex-shrink-0 ${tone}`} />
+                <span className="text-xs font-semibold text-slate-200">{label}</span>
+              </button>
+            ))}
           </div>
         </div>
       </div>
