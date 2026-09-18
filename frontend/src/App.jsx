@@ -10,9 +10,12 @@ import Dashboard from './pages/Dashboard';
 import Inventory from './pages/Inventory';
 import Warehouses from './pages/Warehouses';
 import AuditLogs from './pages/AuditLogs';
+<<<<<<< HEAD
 import PurchaseOrders from './pages/PurchaseOrders';
 import PurchaseOrderDetail from './pages/PurchaseOrderDetail';
 import PrintReceivingSlip from './pages/PrintReceivingSlip';
+=======
+>>>>>>> c5ab6591203fab52473828b672a57871a7dbebba
 
 const ProtectedLayout = () => {
   const { user, loading } = useAuth();
@@ -36,8 +39,11 @@ const ProtectedLayout = () => {
             <Route path="/" element={<Dashboard />} />
             <Route path="/inventory" element={<Inventory />} />
             <Route path="/warehouses" element={<Warehouses />} />
+<<<<<<< HEAD
             <Route path="/purchase-orders" element={<PurchaseOrders />} />
             <Route path="/purchase-orders/:id" element={<PurchaseOrderDetail />} />
+=======
+>>>>>>> c5ab6591203fab52473828b672a57871a7dbebba
             <Route path="/audit" element={<AuditLogs />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
@@ -58,7 +64,10 @@ export default function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
+<<<<<<< HEAD
           <Route path="/print/po/:id" element={<PrintReceivingSlip />} />
+=======
+>>>>>>> c5ab6591203fab52473828b672a57871a7dbebba
           <Route path="/*" element={<ProtectedLayout />} />
         </Routes>
       </Router>

@@ -25,7 +25,10 @@ app.use('/api/v1/auth', require('./routes/auth.routes'));
 app.use('/api/v1/warehouses', require('./routes/warehouse.routes'));
 app.use('/api/v1/products', require('./routes/product.routes'));
 app.use('/api/v1/inventory', require('./routes/inventory.routes'));
+<<<<<<< HEAD
 app.use('/api/v1/purchase-orders', require('./routes/purchaseOrder.routes'));
+=======
+>>>>>>> c5ab6591203fab52473828b672a57871a7dbebba
 app.use('/api/v1/dashboard', require('./routes/dashboard.routes'));
 app.use('/api/v1/audit', require('./routes/audit.routes'));
 

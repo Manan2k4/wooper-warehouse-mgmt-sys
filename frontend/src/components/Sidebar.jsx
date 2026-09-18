@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+<<<<<<< HEAD
 import {
   LayoutDashboard,
   Boxes,
@@ -8,6 +9,15 @@ import {
   QrCode,
   LogOut,
   ClipboardList
+=======
+import { 
+  LayoutDashboard, 
+  Boxes, 
+  Warehouse, 
+  ShieldCheck, 
+  QrCode, 
+  LogOut 
+>>>>>>> c5ab6591203fab52473828b672a57871a7dbebba
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -17,7 +27,10 @@ export default function Sidebar({ onScanClick }) {
   const navItems = [
     { label: 'Dashboard', path: '/', icon: LayoutDashboard },
     { label: 'Inventory', path: '/inventory', icon: Boxes },
+<<<<<<< HEAD
     { label: 'Purchase Orders', path: '/purchase-orders', icon: ClipboardList },
+=======
+>>>>>>> c5ab6591203fab52473828b672a57871a7dbebba
     { label: 'Warehouses', path: '/warehouses', icon: Warehouse },
     { label: 'Audit Logs', path: '/audit', icon: ShieldCheck, roles: ['super_admin', 'auditor', 'warehouse_manager'] }
   ];

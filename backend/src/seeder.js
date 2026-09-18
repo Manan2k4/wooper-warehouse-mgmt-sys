@@ -6,7 +6,10 @@ const Category = require('./models/Category');
 const Location = require('./models/Location');
 const Product = require('./models/Product');
 const AuditLog = require('./models/AuditLog');
+<<<<<<< HEAD
 const PurchaseOrder = require('./models/PurchaseOrder');
+=======
+>>>>>>> c5ab6591203fab52473828b672a57871a7dbebba
 const { generateQRCode } = require('./utils/barcode');
 
 dotenv.config();
@@ -21,8 +24,12 @@ const seed = async () => {
       Category.deleteMany(),
       Location.deleteMany(),
       Product.deleteMany(),
+<<<<<<< HEAD
       AuditLog.deleteMany(),
       PurchaseOrder.deleteMany()
+=======
+      AuditLog.deleteMany()
+>>>>>>> c5ab6591203fab52473828b672a57871a7dbebba
     ]);
 
     console.log('Seeding warehouses...');
@@ -61,7 +68,11 @@ const seed = async () => {
     const p2Qr = await generateQRCode(JSON.stringify({ sku: 'IND-LIFT-2002', barcode: 'BC-9938210', name: 'Hydraulic Pallet Truck 3-Ton' }));
     const p3Qr = await generateQRCode(JSON.stringify({ sku: 'PACK-BOX-3003', barcode: 'BC-1122334', name: 'Heavy Duty Double-Wall Box 24x18x18' }));
 
+<<<<<<< HEAD
     const [prod1, prod2, prod3] = await Product.create([
+=======
+    await Product.create([
+>>>>>>> c5ab6591203fab52473828b672a57871a7dbebba
       {
         name: 'Industrial 2D Barcode Scanner',
         sku: 'ELEC-LOG-1001',
@@ -137,6 +148,7 @@ const seed = async () => {
       }
     ]);
 
+<<<<<<< HEAD
     console.log('Seeding purchase orders...');
     await PurchaseOrder.create([
       {
@@ -166,6 +178,8 @@ const seed = async () => {
       }
     ]);
 
+=======
+>>>>>>> c5ab6591203fab52473828b672a57871a7dbebba
     console.log('🎉 Database successfully seeded with full initial test suite!');
     process.exit(0);
   } catch (err) {
